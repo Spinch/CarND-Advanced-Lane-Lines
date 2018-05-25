@@ -390,6 +390,9 @@ class LaneTracer(object):
         # perspective untransform
         polyImgUntr = self.pTransform.transformInv(np.dstack((zero_channel, polyImg, zero_channel)))
         self.finalImg = cv2.addWeighted(self.img_corrected, 1, polyImgUntr, 0.3, 0)
+        cv2.putText(self.finalImg,"L Curve: {:4.1f}".format(self.curvl), (10,700), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+        cv2.putText(self.finalImg,"R Curve: {:4.1f}".format(self.curvr), (1000,700), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+        cv2.putText(self.finalImg,"Dist: {:1.2f}m".format(self.fromCenter), (600,700), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
 
         return self.finalImg
 
@@ -443,10 +446,10 @@ if __name__ == '__main__':
     # create instance of lane line tracer
     tracer = LaneTracer(calImgDir, img0.shape)
 
-    tracer.traceImg(img0)
-    tracer.showPicures()
-    tracer.showFinalImg()
-    plt.show()
+    # tracer.traceImg(img0)
+    # tracer.showPicures()
+    # tracer.showFinalImg()
+    # plt.show()
 
     video_in_name = './project_video.mp4'
     # video_in_name = './challenge_video.mp4'
